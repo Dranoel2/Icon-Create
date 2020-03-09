@@ -4,11 +4,13 @@ import os
 
 from resizeimage import resizeimage
 
+import shutil
+
 sizes = [512,128,32,16]
 
 name = input('Name of icns file? ')
 
-os.makedirs('../{}.iconset'.format(name))
+os.system('mkdir -p ../{}.iconset'.format(name))
 
 with open('../Graphics/icon.png', 'r+b') as icon:
     with Image.open(icon) as image:
@@ -19,3 +21,4 @@ with open('../Graphics/icon.png', 'r+b') as icon:
             x = size
             final = resizeimage.resize_contain(image, [x,x])
             final.save('../{}.iconset/icon_{}x{}.png'.format(name, x, x), image.format)
+            os.system('iconutil -c icns "../{}.iconset"'.format(name))
